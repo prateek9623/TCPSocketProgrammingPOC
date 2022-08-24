@@ -1,0 +1,13 @@
+{
+  "name": "socket-programming",
+  "version-string": "1-dev",
+  "dependencies": [
+    "spdlog",
+    "asio",
+    {
+      "name": "parallelstl",
+      "platform": "osx"
+    }
+  ],
+  "features": {}
+}

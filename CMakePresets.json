@@ -1,0 +1,106 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 21,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "base",
+            "description": "Basse configuration.",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "installDir": "${sourceDir}/install/${presetName}",
+            "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+        },
+        {
+            "name": "windows-base",
+            "description": "Target Windows with the Visual Studio development environment.",
+            "hidden": true,
+            "generator": "Ninja",
+            "inherits": "base",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            }
+        },
+        {
+            "name": "linux-base",
+            "description": "Target linus with the Ninja generator.",
+            "hidden": true,
+            "generator": "Ninja",
+            "inherits": "base",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            },
+            "vendor": {
+                "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
+                    "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
+                }
+            }
+        },
+        {
+            "name": "vs-x64-debug",
+            "displayName": "Visual Studio Community 2022 Debug - amd64",
+            "description": "Using compilers for Visual Studio 17 2022 (x64 architecture)",
+            "toolset": "host=x64",
+            "hidden": true,
+            "inherits": "windows-base",
+            "generator": "Visual Studio 17 2022",
+            "cacheVariables": {
+                "CMAKE_CONFIGURATION_TYPES": "Debug",
+                "CMAKE_CXX_FLAGS": "-std:c++17"
+            },
+            "environment": {
+                "PATH": "${sourceDir}/out/build/${presetName}/vcpkg_installed/x64-windows/debug/bin;$penv{PATH}"
+            }
+        },
+        {
+            "name": "vs-x64-relwithdebinfo",
+            "displayName": "Visual Studio Community 2022 RelWithDebInfo - amd64",
+            "description": "Using compilers for Visual Studio 17 2022 (x64 architecture)",
+            "toolset": "host=x64",
+            "hidden": true,
+            "inherits": "windows-base",
+            "cacheVariables": {
+                "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
+                "CMAKE_CXX_FLAGS": "-std:c++17"
+            },
+            "environment": {
+                "PATH": "${sourceDir}/out/build/${presetName}/vcpkg_installed/x64-windows/bin;$penv{PATH}"
+            }
+        },
+        {
+            "name": "linux-debug",
+            "displayName": "Linux Debug",
+            "description": "Target the Windows Subsystem for Linux (WSL) or a remote Linux system.",
+            "inherits": "linux-base",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_CXX_FLAGS": "-std:c++17"
+            },
+            "environment": {}
+        },
+        {
+            "name": "linux-relwithdebinfo",
+            "displayName": "Linux RelWithDebInfo",
+            "description": "Target the Windows Subsystem for Linux (WSL) or a remote Linux system.",
+            "hidden": true,
+            "inherits": "linux-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "CMAKE_CXX_FLAGS": "-std:c++17"
+            },
+            "environment": {}
+        }
+    ]
+}

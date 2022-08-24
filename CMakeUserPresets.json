@@ -1,0 +1,39 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "personal-vs-x64-debug",
+      "displayName": "Personal Visual Studio Community 2022 Debug - amd64",
+      "inherits": "vs-x64-debug",
+      "installDir": "${sourceDir}/install/${presetName}",
+      "cacheVariables": {},
+      "environment": {}
+    },
+    {
+      "name": "personal-vs-x64-relwithdebinfo",
+      "displayName": "Personal Visual Studio Community 2022 RelWithDebInfo - amd64",
+      "inherits": "vs-x64-relwithdebinfo",
+      "installDir": "${sourceDir}/install/${presetName}",
+      "cacheVariables": {}
+    },
+    {
+      "name": "personal-linux-debug",
+      "inherits": "linux-debug",
+      "displayName": "Personal Linux Debug",
+      "installDir": "${sourceDir}/install/${presetName}",
+      "cacheVariables": {}
+    },
+    {
+      "name": "personal-linux-relwithdebinfo",
+      "inherits": "linux-relwithdebinfo",
+      "displayName": "Personal Linux RelWithDebInfo",
+      "installDir": "${sourceDir}/install/${presetName}",
+      "cacheVariables": {}
+    }
+  ]
+}
